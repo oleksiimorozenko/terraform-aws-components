@@ -1,5 +1,671 @@
 # CHANGELOG
 
+## 1.530.0
+
+
+
+<details>
+  <summary>Codefreeze warning update @goruha (#1185)</summary>
+## what
+* Codefreeze warning update
+
+## why
+* Started codefreeze
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/issues/1177
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.529.0` @github-actions (#1184)</summary>
+Update Changelog for [`1.529.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.529.0)
+</details>
+
+
+
+## 1.529.0
+
+
+
+* No changes
+
+
+
+## 1.528.0
+
+
+
+<details>
+  <summary>Allow removal of cluster name from aurora ssm parameter @darrenl33 (#1162)</summary>
+## what
+
+- ssm parameter is prefixed with the cluster name, adding an cluster_name_override to not set
+- allows prefix to follow naming convention for other parameters by only using ssm_path_prefix
+</details>
+
+<details>
+  <summary>Update Changelog for `1.527.0` @github-actions (#1182)</summary>
+Update Changelog for [`1.527.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.527.0)
+</details>
+
+
+
+## 1.527.0
+
+
+
+<details>
+  <summary>update dd lambda to allow specifying region for configuration component @Benbentwo (#1163)</summary>
+## what
+
+- allows datadog-lambda forwarder to specify a global region override for environment
+
+## why
+
+ - since we cannot do dynamic providers we should make `datadog_configuration` be regional
+
+Example Stack configuration
+```yaml
+import:
+  - orgs/acme/plat/dev/_defaults
+  - mixins/region/us-east-1
+  - catalog/datadog/configuration
+  - catalog/datadog/lambda-forwarder
+
+components:
+  terraform:
+    datadog-configuration:
+      vars:
+        datadog_secrets_store_type: SSM
+        datadog_secrets_source_store_account_stage: auto
+        datadog_secrets_source_store_account_region: "us-west-2"
+
+    datadog-lambda-forwarder:
+      vars:
+        datadog_configuration_environment: "use1"
+
+```
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.526.0` @github-actions (#1181)</summary>
+Update Changelog for [`1.526.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.526.0)
+</details>
+
+
+
+## 1.526.0
+
+
+
+<details>
+  <summary>feat(kms): updates with embedded policy creation - part2 @Gowiem (#1136)</summary>
+## what
+
+* Updates the KMS module to support embedded policy creation
+
+
+## why
+
+* This allows for easy wiring in of aws-team-role roles into the KMS policy, so we do something like "Admins in the dev account have access to use this Key"
+
+## references
+
+* This is a continuation of PR #523 which I could not continue as I no longer have access to push to Cloud Posse except as a fork 😢 
+  * @nitrocode did a great review with some solid suggestions in #523. I have completed my work from that review as part of this newer PR. 
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.524.0` @github-actions (#1179)</summary>
+Update Changelog for [`1.524.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.524.0)
+</details>
+
+
+
+## 1.524.0
+
+
+
+<details>
+  <summary>Announce code freeze @goruha (#1178)</summary>
+## what
+* Announce code freeze on readme
+
+## why
+* Readme is more informative than issue (while issue will be emailed)
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/issues/1177
+</details>
+
+<details>
+  <summary>Update Changelog for `1.523.1` @github-actions (#1176)</summary>
+Update Changelog for [`1.523.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.523.1)
+</details>
+
+
+
+## 1.523.1
+
+
+
+<details>
+  <summary>feat(elasticache-redis): add snapshot retention limit @nitrocode (#1171)</summary>
+## what
+
+<!--
+- Describe high-level what changed as a result of these commits (i.e. in plain-english, what do these changes mean?)
+- Use bullet points to be concise and to the point.
+-->
+- add snapshot retention limit
+
+## why
+
+<!--
+- Provide the justifications for the changes (e.g. business case).
+- Describe why these changes were made (e.g. why do these commits fix the problem?)
+- Use bullet points to be concise and to the point.
+-->
+- Resolves [ElastiCache.1](https://docs.aws.amazon.com/securityhub/latest/userguide/elasticache-controls.html#elasticache-1) (ElastiCache (Redis OSS) clusters should have automatic backups enabled) securityhub control by giving the ability to set this value to a number greater than 0
+
+## references
+
+<!--
+- Link to any supporting github issues or helpful documentation to add some context (e.g. stackoverflow).
+- Use `closes #123`, if this PR closes a GitHub issue `#123`
+-->
+- Default is 0 https://github.com/cloudposse/terraform-aws-elasticache-redis/blob/9104d9a6a120ae9c90f59c5eb4ea711cc2d2c6bb/variables.tf#L223-L227
+- Module received the feature 5 years ago so no need to update the module version https://github.com/cloudposse/terraform-aws-elasticache-redis/pull/45
+- Related PR #1170 which upgrades the module
+</details>
+
+
+## 🤖 Automatic Updates
+
+<details>
+  <summary>Update Changelog for `1.523.0` @github-actions (#1174)</summary>
+Update Changelog for [`1.523.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.523.0)
+</details>
+
+
+
+## 1.523.0
+
+
+
+<details>
+  <summary>feat: Support `enabled` flag for EKS Storage Classes @milldr (#1173)</summary>
+## what
+- Add support for enabled flag in storage class variables
+
+## why
+- Create option to disable a given storage-class if it's include in an imported default component catalog
+
+## references
+- n/a
+</details>
+
+
+
+## 1.517.1
+
+
+
+<details>
+  <summary>feat: Add cross_origin_auth variable to auth0_client @wavemoran (#1149)</summary>
+## what
+
+- Adds the `cross_origin_auth` variable to the `auth0_client` resource
+
+## why
+
+- Variable to allow cross-origin auth requests which is useful in CORS-heavy setups
+
+## references
+
+- https://registry.terraform.io/providers/auth0/auth0/latest/docs/resources/client#cross_origin_auth
+
+</details>
+
+
+## 🤖 Automatic Updates
+
+<details>
+  <summary>Update Changelog for `1.517.0` @github-actions (#1153)</summary>
+Update Changelog for [`1.517.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.517.0)
+</details>
+
+
+
+## 1.517.0
+
+
+
+<details>
+  <summary>feat: add additional github repository options for argocd @RoseSecurity (#1143)</summary>
+## what
+
+- Add additional granular controls for ArgoCD repositories by supporting commit signing requirements and branch protection rules
+
+## why
+
+- Add more flexibility and security into the existing Argo repo
+
+## testing
+
+- [X] This contribution is actively deployed within our downstream component library
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.512.0` @github-actions (#1142)</summary>
+Update Changelog for [`1.512.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.512.0)
+</details>
+
+
+
+## 1.512.0
+
+
+
+<details>
+  <summary>Upstream `RunsOn` @Benbentwo (#1141)</summary>
+## what
+
+- RunsOn Component and how to setup TGW Connnections
+
+## why
+
+ - RunsOn simplifies the Github Action Runner setup
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.511.0` @github-actions (#1140)</summary>
+Update Changelog for [`1.511.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.511.0)
+</details>
+
+
+
+## 1.511.0
+
+
+
+<details>
+  <summary>Update Changelog for `1.510.0` @github-actions (#1139)</summary>
+Update Changelog for [`1.510.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.510.0)
+</details>
+
+
+
+## 1.510.0
+
+
+
+<details>
+  <summary>`bugfix` ECS Service to use Datadog-Configuration Component #1135 @Benbentwo (#1138)</summary>
+## what
+
+* ECS Service to use Datadog-Configuration Component
+
+## why
+
+* Regression from #810 
+* Several Customers & PRs were incoming and ECS Service Component missed an opportunity to merge new functionality. 
+* No component anymore called `datadog_keys`
+
+## references
+
+ - #810 
+ - #1135 
+</details>
+
+<details>
+  <summary>Update Changelog for `1.509.0` @github-actions (#1137)</summary>
+Update Changelog for [`1.509.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.509.0)
+</details>
+
+
+
+## 1.509.0
+
+
+
+<details>
+  <summary>Restore Datadog-Configuration Support @Benbentwo (#1135)</summary>
+## what
+
+* ECS Service to use Datadog-Configuration Component
+
+## why
+
+* Regression from #810 
+* Several Customers & PRs were incoming and ECS Service Component missed an opportunity to merge new functionality. 
+* No component anymore called `datadog_keys`
+
+## references
+
+ - #810 
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.508.0` @github-actions (#1134)</summary>
+Update Changelog for [`1.508.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.508.0)
+</details>
+
+
+
+## 1.508.0
+
+
+
+<details>
+  <summary>chore(account-settings): upgrades budgets child-module to 0.5.1 @Gowiem (#1133)</summary>
+## what
+
+* Upgrades `terraform-aws-budgets` submodule usage in account-settings to 0.5.1
+
+## why
+
+* This enables passing `subscriber_email_addresses` to budgets for receiving emails
+
+## references
+
+* See fix in https://github.com/cloudposse/terraform-aws-budgets/pull/51
+</details>
+
+<details>
+  <summary>Update Changelog for `1.507.1` @github-actions (#1132)</summary>
+Update Changelog for [`1.507.1`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.507.1)
+</details>
+
+
+
+## 1.507.1
+
+
+
+<details>
+  <summary>Update Changelog for `1.506.0` @github-actions (#1130)</summary>
+Update Changelog for [`1.506.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.506.0)
+</details>
+
+
+## 🚀 Enhancements
+
+<details>
+  <summary>mq-broker: upgrade versions @johncblandii (#602)</summary>
+## what
+* Upgraded to the latest `terraform-aws-mq-broker`
+* Updated the `providers` to match the common pattern
+* Updated the module versions
+
+## why
+* The component was dated
+
+## references
+
+
+
+</details>
+
+
+
+## 1.506.0
+
+
+
+<details>
+  <summary>Add scheduled overrides feature @oleksiimorozenko (#750)</summary>
+## what
+* This pull request adds the scheduled overrides feature supported by ARC
+
+## why
+* It could be useful for pre-scaling during work hours and downscaling respectively when a work time ends coming back to `minReplicas`
+
+## references
+* Scheduled overrides section in [ARC Automatically scaling runners documentation](https://github.com/actions/actions-runner-controller/blob/master/docs/automatically-scaling-runners.md#scheduled-overrides)
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.505.0` @github-actions (#1129)</summary>
+Update Changelog for [`1.505.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.505.0)
+</details>
+
+
+
+## 1.505.0
+
+
+
+<details>
+  <summary>fix: account-quota drift reduced @dudymas (#1102)</summary>
+## what
+
+- encode values into a `for_each` on service quota resources
+
+## why
+
+- terraform sometimes gets bad state back from the AWS API, so fetched results
+ought to be ignored. Instead, input values should be respected as truth.
+
+## references
+
+- AWS CLI
+  [command to list service quotas](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/service-quotas/list-service-quotas.html) `aws service-quotas list-service-quotas`.
+   Note where it says "For some quotas, only the default values are available."
+- [Medium article](https://medium.com/@jsonk/the-limit-does-not-exist-hidden-visibility-of-aws-service-limits-4b786f846bc0)
+  explaining how many AWS service limits are not available.
+
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.504.0` @github-actions (#1128)</summary>
+Update Changelog for [`1.504.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.504.0)
+</details>
+
+
+
+## 1.504.0
+
+
+
+<details>
+  <summary>feat: allow vulnerability scanning of Argo repository and implement ignore changes for non-change drift @RoseSecurity (#1120)</summary>
+## what
+
+- Attempted to refactor code to ensure changes don't occur on each run (did not resolve)
+- Opened an issue with [GitHub](https://github.com/integrations/terraform-provider-github/issues/2243) but is still in the triaging state
+- This is a quick fix for addressing the following non-change
+
+```console
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_protection.default[0] will be updated in-place
+  ~ resource "github_branch_protection" "default" {
+        id                              = "XXXXXXX"
+        # (10 unchanged attributes hidden)
+
+      ~ restrict_pushes {
+          ~ push_allowances  = [
+              + "XXXXXXX",
+            ]
+```
+
+## why
+
+- [X] Adds lifecycle meta-argument for ignoring changes to `push_allowances`
+- [X] Enable vulnerability alerting for vulnerable dependencies by default to address `tfsec` findings
+
+## Testing
+
+- [X] Validated with `atmos validate stacks` 
+- [X] Performed successful `atmos terraform deploy` on component
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.502.0` @github-actions (#1126)</summary>
+Update Changelog for [`1.502.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.502.0)
+</details>
+
+
+
+## 1.502.0
+
+
+
+<details>
+  <summary>upstream `tailscale` @Benbentwo (#835)</summary>
+## what
+* Initial Tailscale deployment
+
+## why
+* tailscale operators
+
+## references
+* https://github.com/tailscale/tailscale/tree/main/docs/k8s
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.501.0` @github-actions (#1125)</summary>
+Update Changelog for [`1.501.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.501.0)
+</details>
+
+<details>
+  <summary>docs: improve external-dns snippet in readme @sgtoj (#986)</summary>
+## what
+
+- update the `eks/external-dns` component example in readme
+    - set latest chart version
+    - set the resource configure properly
+    - add `txt_prefix` var to snippet
+
+## why
+
+- help the future engineers deploying or updating external-dns
+
+## references
+
+- n/a
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.500.0` @github-actions (#1124)</summary>
+Update Changelog for [`1.500.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.500.0)
+</details>
+
+
+
+## 1.501.0
+
+<details>
+  <summary>Fix release changelog space issue @goruha (#1122)</summary>
+## what
+* Fix release changelog space issue
+
+![CleanShot 2024-10-01 at 12 27 42@2x](https://github.com/user-attachments/assets/2d42740a-1d5d-4990-94ac-eb49bdfe4c32)
+
+## why
+* Have nice changelog
+
+## references
+* https://github.com/cloudposse/terraform-aws-components/pull/1117/files#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4edR10
+
+
+## 1.500.0
+
+
+
+## Affected Components
+- [eks/argocd](https://docs.cloudposse.com/components/library/aws/eks/argocd#changelog)
+- [eks/cluster](https://docs.cloudposse.com/components/library/aws/eks/cluster#changelog)
+- [eks/datadog-agent](https://docs.cloudposse.com/components/library/aws/eks/datadog-agent#changelog)
+- [eks/github-actions-runner](https://docs.cloudposse.com/components/library/aws/eks/github-actions-runner#changelog)
+- [spa-s3-cloudfront](https://docs.cloudposse.com/components/library/aws/spa-s3-cloudfront#changelog)
+
+
+<details>
+  <summary>add additional waf features @mcalhoun (#791)</summary>
+
+  ## what
+* Add the ability to specify a list of ALBs to attach WAF to
+* Add the ability to specify a list of tags to target ALBs to attach WAF to
+
+## why
+* To provider greater flexibility in attaching WAF to ALBs
+</details>
+
+<details>
+  <summary>Update Changelog for `1.499.0` @github-actions (#1123)</summary>
+
+  Update Changelog for [`1.499.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.499.0)
+</details>
+
+<details>
+  <summary>docs: fix typos using `codespell` @RoseSecurity (#1114)</summary>
+
+  ## what and why
+
+> [!NOTE]
+> Feel free to close this PR if the changes are not worth the review. I won't be offended
+
+- For context, I wanted to clean up some of the documentation in our repository, which identified several typos in our variables and READMEs. I decided to use `codespell` to automate this process and thought it might be useful for a quick cleanup here!
+
+### usage
+
+```sh
+codespell -w
+```
+
+</details>
+
+
+
+## 1.499.0
+
+
+
+<details>
+  <summary>feat: add detector features to guard duty component @dudymas (#1112)</summary>
+
+  ## what
+
+- add detector features to guard duty
+
+## why
+
+- added functionality
+
+## references
+
+- [Detector Feature API](https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DetectorFeatureConfiguration.html)
+
+</details>
+
+<details>
+  <summary>Update Changelog for `1.497.0` @github-actions (#1117)</summary>
+
+  Update Changelog for [`1.497.0`](https://github.com/cloudposse/terraform-aws-components/releases/tag/1.497.0)
+</details>
+
+
+
 ## 1.497.0
 
 
